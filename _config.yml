@@ -265,9 +265,6 @@ whitelist:
   - jekyll-redirect-from
   - jemoji
   
-html_sitemap:
-  enabled: false
-
 # Archives
 #  Type
 #  - GitHub Pages compatible archive pages built with Liquid ~> type: liquid (default)
