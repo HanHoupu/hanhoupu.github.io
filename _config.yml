@@ -264,7 +264,9 @@ whitelist:
   - jekyll-sitemap
   - jekyll-redirect-from
   - jemoji
-
+  
+html_sitemap:
+  enabled: false
 
 # Archives
 #  Type
