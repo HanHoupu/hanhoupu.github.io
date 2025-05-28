@@ -21,4 +21,4 @@ Work experience
   * Duties includes: Designing precision-adjustable vacuum chamber frames; modeling laser tables with SolidWorks; simulating magnetic assemblies in COMSOL
   * Supervisor: Wu Xing
 
-For more detail, please see [my resume](/resume.pdf/).
+For more detail, please see [my resume](/resume.pdf).
