@@ -8,5 +8,5 @@ author_profile: true
 {% include base_path %}
 
 ## 1. [BTC LSTM Prediction](/files/1st.html).
-Predict next-day BTC returns using an LSTM fed with cross-asset signals (Gold & S&P 500).
+Predict BTC trending by using an LSTM fed with cross-asset signals (Gold & S&P 500).
 
