@@ -10,3 +10,5 @@ author_profile: true
 ## 1. [BTC LSTM Prediction](/files/1st.html).
 Predict BTC trending by using an LSTM fed with cross-asset signals (Gold & S&P 500).
 
+## 2. [ENSDF Transformer Prediction](/files/1st.html).
+Predict nuclear energy levels by training a Transformer model on ENSDF dataset with incremental temporal signals.
