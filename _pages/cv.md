@@ -17,7 +17,7 @@ Education
 Work experience
 ======
 * 05 2024-05 2025: Research Assistant
-  * GitHub University
+  * Michigan State University
   * Duties includes: Designing precision-adjustable vacuum chamber frames; modeling laser tables with SolidWorks; simulating magnetic assemblies in COMSOL
   * Supervisor: Wu Xing
 
