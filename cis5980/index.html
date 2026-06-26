@@ -37,38 +37,38 @@
   <hr>
 
   <article class="lang-panel" id="panel-en">
-<p>Hi everyone,</p>
-        <p>My name is Han Houpu, and I am a student in the UPenn MAS-CS program. I am planning to apply for CIS 5980 this Fall.</p>
-        <p>I currently have two project ideas. Both are related to diffusion models.</p>
+    <p>Hello,</p>
+    <p>My name is Han Houpu, and I am a student in the UPenn MAS-CS program. I am planning to apply for CIS 5980 this Fall.</p>
+    <p>I currently have two project ideas. Both are based on diffusion, or at least closely related to diffusion models.</p>
 
-        <div class="note">
-          <p>Before introducing the ideas, I want to mention one thing first: for both projects, we may need to rent GPUs later in the semester for training or SFT experiments. I hope the cost can be shared by the team. My rough estimate is that the total cost should not be more than around $200 per person for the semester.</p>
-        </div>
+    <div class="note">
+      <p>Before introducing the ideas, I want to mention one thing first: for both projects, we may need to rent GPUs later in the semester when we run experiments, training, or SFT. I hope the cost can be shared by the team. My rough estimate is that the total cost should not be more than around $200 per person for the semester.</p>
+    </div>
 
-        <h2>1. An AlphaZero-like diffusion-based Mahjong AI</h2>
-        <p>The basic idea is simple: inspired by AlphaZero, we want to build a Mahjong AI. The goal is to make it as strong as possible, ideally close to SOTA.</p>
-        <p>However, this project has several difficult points. As far as I know, AlphaZero-style methods have not really been successfully applied to this kind of game.</p>
-        <ol>
-          <li>Mahjong is an imperfect-information game, so the AI needs to reason about what tiles the opponents may have.</li>
-          <li>If we only look at our own hand, the complexity of Mahjong may be comparable to Go. But if we also consider the discard pool and the possible hidden hands of other players, the complexity can become much larger than Go, possibly by around 10^100 in rough scale.</li>
-          <li>There are already some Mahjong AIs, but many of them are based on human game records and feature learning. I think this approach is not quite graceful and less scalable. Our idea may be more interesting, but it also means there may not be much prior work to directly follow.</li>
-        </ol>
-        <p>My current thought is to use diffusion models because diffusion may be suitable for discrete modeling, especially for modeling hidden information such as opponents’ hands.</p>
-        <p>Later, we may also build a full-information model as a teacher, and then distill it into a teacher-student network.</p>
-        <p>Since we do not need to collect real-world data, there should be less work on data cleaning. If we control the model size properly, I think it may even be possible to train the model on a single RTX 3090 Ti or a similar GPU.</p>
+    <h2>1. An AlphaZero-like diffusion-based Mahjong AI</h2>
+    <p>The basic idea is simple: inspired by AlphaZero, we want to build a AI for Mahjong<a href="https://en.wikipedia.org/wiki/Mahjong" target="_blank" rel="noopener noreferrer">Mahjong</a>. The goal is to make it as strong as possible, ideally close to SOTA.</p>
+    <p>That being said, this project has several difficult points. As far as I know, AlphaZero-like algorithms have not really been successfully applied to this kind of game, or at least I have not read papers that directly do this.</p>
+    <ol>
+      <li>Mahjong is an imperfect-information game, so in terms of complexity, the AI needs to additionally reason about the hidden tiles held by the opponents.</li>
+      <li>If we only look at our own hand, the complexity of Mahjong may be comparable to Go. But if we also consider the discard pool and the possible hidden hands of other players, the overall complexity may become around 10^100 times larger than Go in rough scale.</li>
+      <li>There are already some Mahjong AIs, but many of them are based on human game records and feature learning. I think this approach is not elegant enough in terms of method and scalability. Our idea may look more interesting, but it also means there may not be much prior work to directly follow.</li>
+    </ol>
+    <p>My current thought is to use diffusion models because diffusion itself may be suitable for discrete modeling, especially for modeling hidden information such as opponents’ hands.</p>
+    <p>Later, we may also build a full-information model as a teacher, and then distill it into a teacher-student network.</p>
+    <p>Since we do not need to collect real-world data, there should be less work on data cleaning. If we control the model size properly, I think it may even be possible to train the model on a single RTX 3090 Ti or a similar GPU.</p>
 
-        <h2>2. SFT for accelerating diffusion LLMs, especially with latent representations</h2>
-        <p>If you follow open-source LLMs, you may know about LLaDA and Dream 8B. They are diffusion-based language models, not image diffusion models. Around two weeks ago, Google also released its open-source diffusion LLM model.</p>
-        <p>One important feature of diffusion models is that they have strong parallelization potential. From image diffusion models, we know that diffusion can often be accelerated, so diffusion LLMs may also have large room for speedup.</p>
-        <p>Another interesting idea comes from image diffusion: diffusion models can do refinement, such as super-resolution, by gradually improving the output.</p>
-        <p>My early idea is: can we use a latent representation to replace CoT, or chain-of-thought? We can think of CoT as an optimization process. But when hidden states are converted into tokens, there may be some collapse or dimensionality reduction. If we keep the reasoning process in a continuous high-dimensional hidden-state space, it may have stronger expressive power.</p>
-        <p>If possible, we may even use one refined latent representation to generate 256 tokens in parallel, instead of generating tokens one by one like a traditional autoregressive GPT model.</p>
+    <h2>2. SFT for accelerating diffusion LLMs, especially with latent representations</h2>
+    <p>If you follow open-source LLMs, you may know about LLaDA and Dream 8B. They are diffusion-based language models, not image diffusion models. In June 2026, Google also open-sourced its diffusion LLM model.</p>
+    <p>One important feature of diffusion models is that they have strong parallelization potential. From image diffusion models and diffusion itself, we know that diffusion can often be accelerated, so diffusion LLMs may also have large room for speedup.</p>
+    <p>Another interesting idea comes from image diffusion: in the image domain, diffusion models can be used for tasks such as super-resolution, where the output is gradually refined.</p>
+    <p>My early idea is: can we use a latent representation to replace CoT, or chain-of-thought, and use it for better expression? Since CoT can be viewed as an optimization process, converting hidden states into tokens may be a collapse or dimensionality reduction step. If we can keep the reasoning process in a continuous high-dimensional hidden-state space, it may have stronger expressive power.</p>
+    <p>If possible, we may even use one refined latent representation to generate 256 tokens in parallel, achieving parallel acceleration, instead of waiting for tokens one by one like a traditional autoregressive GPT model.</p>
 
-        <p class="closing">If you are interested in either of these topics and want to apply for CIS 5980 this Fall together, please email me at <a class="contact-link" href="mailto:hanhoupu@seas.upenn.edu">hanhoupu@seas.upenn.edu</a>. We can find a time to talk.</p>
+    <p class="closing">If you are interested in either of these topics and want to apply for CIS 5980 this Fall together, please email me at <a class="contact-link" href="mailto:hanhoupu@seas.upenn.edu">hanhoupu@seas.upenn.edu</a>. We can find a time to talk.</p>
   </article>
 
   <article class="lang-panel" id="panel-zh" lang="zh-Hans" hidden>
-<p>各位好，我是 Han Houpu，UPenn MAS-CS 的学生，打算这个 Fall 申请 CIS 5980。</p>
+<p>各位好，我是韩厚普，UPenn MAS-CS 的学生，打算这个 Fall 申请 CIS 5980。</p>
         <p>我现在手上有两个点子，都是基于 diffusion，或者说和 diffusion 相关的。</p>
 
         <div class="note">
@@ -77,10 +77,10 @@
 
         <h2>1. 类 AlphaZero 的 diffusion-based 麻将 AI</h2>
         <p>一句话来说，这个项目的出发点很简单：受 AlphaZero 的启发，我们写一个麻将版本的 AI，目标是最强 SOTA。</p>
-        <p>话是这么说，这个项目会有几个难点，是 AlphaZero 类似的算法从来没有在类似游戏中实现过的，最起码我没有读过类似的论文。</p>
+        <p>话是这么说，这个项目会有几个难点，以及AlphaZero类似的算法从来没有在类似游戏中实现过的，最起码我没有读过类似的论文。</p>
         <ol>
-          <li>麻将是一个不完全信息类游戏，所以在复杂度上，我们要额外去猜对手到底有什么牌。</li>
-          <li>如果只看自己的牌，麻将的复杂度和围棋旗鼓相当；但如果考虑牌河和对家手牌的可能性，那么复杂度将会比围棋高 10^100 这个数量级。</li>
+          <li>麻将是一个不完全信息类游戏，所以在复杂度上，我们要额外去猜对手遮起来的牌的复杂度。</li>
+          <li>如果只看自己的牌，麻将的复杂度和围棋旗鼓相当；但如果考虑牌河和对家手牌的可能性，那么整体复杂度将会是围棋的 10^100 倍。</li>
           <li>市面上确实有类似的麻将 AI，不过都是走人类棋谱 + 特征学习，在方法和可扩展性上我认为不够优美。所以我们这个虽然看上去好看，但是没什么前人的参考。</li>
         </ol>
         <p>我来解释一下我的具体想法：使用 diffusion 是因为 diffusion 本身非常适合离散模型建模，尤其是在针对对手手牌进行读牌的领域，它可能非常适合。</p>
@@ -88,13 +88,13 @@
         <p>由于我们不需要进行任何数据收集，所以数据清洗之类的杂活不用干；且如果规模控制得当的话，我认为在一张 3090 Ti 上（或者类似的卡）进行训练都是有可能的。</p>
 
         <h2>2. diffusion LLM 的加速 SFT，尤其是 latent</h2>
-        <p>如果对开源 LLM 有关注的话，各位可能知道之前的 LLaDA 和 Dream 8B 模型。它们是基于 diffusion 的大语言模型，而不是画图模型。两周前，谷歌也发布开源了它们的 diffusion LLM 模型。</p>
+        <p>如果对开源 LLM 有关注的话，各位可能知道之前的 LLaDA 和 Dream 8B 模型。它们是基于 diffusion 的大语言模型，而不是画图模型。2026/6，谷歌也发布开源了它们的 diffusion LLM 模型。</p>
         <p>Diffusion 模型的一个很大的特点就是可并行性很高。也就是说，从图像 diffusion / diffusion 本身的特性来看，它的加速潜力非常大。</p>
         <p>第二个有趣的事情是，在 diffusion 的图像领域中，我们可以使用 diffusion 进行一些超分辨率的解析，即不断进行细化。</p>
-        <p>那么现在我的一个初步想法是：我们能否使用一个 latent 来代替 CoT，即思维链，来起到更好的表达？因为 CoT 可以看成一个优化过程，从 hidden state 到 token 本身是一个坍缩 / 降维的过程；如果我们能一直维持连续的高维 hidden state 形态，可能会有更强的表达能力。</p>
-        <p>甚至可能的话，我们可以用同一个细化好的 latent 来进行 256 个 token 的同时输出，而不是像传统的 AR GPT 一样需要一个一个等待 token。</p>
+        <p>那么现在我的一个初步想法是：我们能否使用一个 latent 来代替 CoT，即思维链，来起到更好的表达？因为 CoT 可以看成一个优化过程，所以从 hidden state 到 token 本身是一个坍缩 / 降维的过程；如果我们能一直维持连续的高维 hidden state 形态，可能会有更强的表达能力。</p>
+        <p>甚至可能的话，我们可以用同一个细化好的 latent 来进行 256 个 token 的同时输出，来达成并行加速的效果，而不是像传统的 AR GPT 一样需要一个一个等待 token。</p>
 
-        <p class="closing">如果你对以上 topic 有兴趣，并想一起申请今年 Fall 的 CIS 5980，请发邮件到 <a class="contact-link" href="mailto:hanhoupu@seas.upenn.edu">hanhoupu@seas.upenn.edu</a>，我们可以找个时间聊聊。</p>
+        <p class="closing">如果你对以上话题有兴趣，并想一起申请今年 Fall 的 CIS 5980，请发邮件到 <a class="contact-link" href="mailto:hanhoupu@seas.upenn.edu">hanhoupu@seas.upenn.edu</a>，我们可以找个时间聊聊。</p>
   </article>
 
   <script>
