@@ -56,13 +56,16 @@
     <p>My current thought is to use diffusion models because diffusion itself may be suitable for discrete modeling, especially for modeling hidden information such as opponents’ hands.</p>
     <p>Later, we may also build a full-information model as a teacher, and then distill it into a teacher-student network.</p>
     <p>Since we do not need to collect real-world data, there should be less work on data cleaning. If we control the model size properly, I think it may even be possible to train the model on a single RTX 3090 Ti or a similar GPU.</p>
+    <p>If it's too difficult, we can downgrade the plan and simply use diffusion to build a Mahjong AI that is close to SOTA. We can collect high-quality game records and follow a more traditional RL method, without focusing on zero-human-data training like AlphaZero.</p>
 
     <h2>2. SFT for accelerating diffusion LLMs, especially with latent representations</h2>
-    <p>If you follow open-source LLMs, you may know about LLaDA and Dream 8B. They are diffusion-based language models, not image diffusion models. In June 2026, Google also open-sourced its diffusion LLM model.</p>
+    <p>If you follow open-source LLMs, you may know about LLaDA 8B and Dream 7B. They are diffusion-based language models, not image diffusion models. In June 2026, Google also open-sourced its diffusion LLM model.</p>
     <p>One important feature of diffusion models is that they have strong parallelization potential. From image diffusion models and diffusion itself, we know that diffusion can often be accelerated, so diffusion LLMs may also have large room for speedup.</p>
     <p>Another interesting idea comes from image diffusion: in the image domain, diffusion models can be used for tasks such as super-resolution, where the output is gradually refined.</p>
     <p>My early idea is: can we use a latent representation to replace CoT, or chain-of-thought, and use it for better expression? Since CoT can be viewed as an optimization process, converting hidden states into tokens may be a collapse or dimensionality reduction step. If we can keep the reasoning process in a continuous high-dimensional hidden-state space, it may have stronger expressive power.</p>
     <p>If possible, we may even use one refined latent representation to generate 256 tokens in parallel, achieving parallel acceleration, instead of waiting for tokens one by one like a traditional autoregressive GPT model.</p>
+    <p>If it's too difficult, we can also downscope the project to training-free acceleration methods for the generation stage of diffusion LLMs. SFT or testing a new training framework may indeed be too hard for one semester.</p>
+
 
     <p class="closing">If you are interested in either of these topics and want to apply for CIS 5980 this Fall together, please email me at <a class="contact-link" href="mailto:hanhoupu@seas.upenn.edu">hanhoupu@seas.upenn.edu</a>. We can find a time to talk.</p>
   </article>
@@ -86,13 +89,15 @@
         <p>我来解释一下我的具体想法：使用 diffusion 是因为 diffusion 本身非常适合离散模型建模，尤其是在针对对手手牌进行读牌的领域，它可能非常适合。</p>
         <p>我们可能会希望后期出现拥有全信息的模型作为 teacher，然后对它进行蒸馏，形成一个 teacher-student 的网络。</p>
         <p>由于我们不需要进行任何数据收集，所以数据清洗之类的杂活不用干；且如果规模控制得当的话，我认为在一张 3090 Ti 上（或者类似的卡）进行训练都是有可能的。</p>
+        <p>以上想法我们实在不行可以降级考虑用diffusion做一个跟sota差不多的就行了，抓优质的对局走传统RL路线，没有必要非要惦记zero的无人工数据训练</p>
 
         <h2>2. diffusion LLM 的加速 SFT，尤其是 latent</h2>
-        <p>如果对开源 LLM 有关注的话，各位可能知道之前的 LLaDA 和 Dream 8B 模型。它们是基于 diffusion 的大语言模型，而不是画图模型。2026/6，谷歌也发布开源了它们的 diffusion LLM 模型。</p>
+        <p>如果对开源 LLM 有关注的话，各位可能知道之前的 LLaDA 8B 和 Dream 7B 模型。它们是基于 diffusion 的大语言模型，而不是画图模型。2026/6，谷歌也发布开源了它们的 diffusion LLM 模型。</p>
         <p>Diffusion 模型的一个很大的特点就是可并行性很高。也就是说，从图像 diffusion / diffusion 本身的特性来看，它的加速潜力非常大。</p>
         <p>第二个有趣的事情是，在 diffusion 的图像领域中，我们可以使用 diffusion 进行一些超分辨率的解析，即不断进行细化。</p>
         <p>那么现在我的一个初步想法是：我们能否使用一个 latent 来代替 CoT，即思维链，来起到更好的表达？因为 CoT 可以看成一个优化过程，所以从 hidden state 到 token 本身是一个坍缩 / 降维的过程；如果我们能一直维持连续的高维 hidden state 形态，可能会有更强的表达能力。</p>
         <p>甚至可能的话，我们可以用同一个细化好的 latent 来进行 256 个 token 的同时输出，来达成并行加速的效果，而不是像传统的 AR GPT 一样需要一个一个等待 token。</p>
+        <p>以上想法我们实在不行可以降级考虑进行一些trainning-free的DLLM的生成阶段的加速工作，SFT或者试新框架可能确实过难</p>
 
         <p class="closing">如果你对以上话题有兴趣，并想一起申请今年 Fall 的 CIS 5980，请发邮件到 <a class="contact-link" href="mailto:hanhoupu@seas.upenn.edu">hanhoupu@seas.upenn.edu</a>，我们可以找个时间聊聊。</p>
   </article>
