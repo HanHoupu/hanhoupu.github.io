@@ -53,7 +53,7 @@
       <li>If we only look at our own hand, the complexity of Mahjong may be comparable to Go. But if we also consider the discard pool and the possible hidden hands of other players, the overall complexity may become around 10^100 times larger than Go in rough scale.</li>
       <li>There are already some Mahjong AIs, but many of them are based on human game records and feature learning. I think this approach is not elegant enough in terms of method and scalability. Our idea may look more interesting, but it also means there may not be much prior work to directly follow.</li>
     </ol>
-    <p>My current thought is to use diffusion models because diffusion itself may be suitable for discrete modeling, especially for modeling hidden information such as opponents’ hands.</p>
+    <p>My current thought is to use diffusion models because diffusion may be useful as a conditional belief model for hidden information, especially for modeling hidden information such as opponents’ hands. The diffusion module is not meant to replace the policy/value model. It is mainly for hand-reading and belief modeling under partial observability.</p>
     <p>Later, we may also build a full-information model as a teacher, and then distill it into a teacher-student network.</p>
     <p>Since we do not need to collect real-world data, there should be less work on data cleaning. If we control the model size properly, I think it may even be possible to train the model on a single RTX 3090 Ti or a similar GPU.</p>
     <p>If it's too difficult, we can downgrade the plan and simply use diffusion to build a Mahjong AI that is close to SOTA. We can collect high-quality game records and follow a more traditional RL method, without focusing on zero-human-data training like AlphaZero.</p>
@@ -86,7 +86,7 @@
           <li>如果只看自己的牌，麻将的复杂度和围棋旗鼓相当；但如果考虑牌河和对家手牌的可能性，那么整体复杂度将会是围棋的 10^100 倍。</li>
           <li>市面上确实有类似的麻将 AI，不过都是走人类棋谱 + 特征学习，在方法和可扩展性上我认为不够优美。所以我们这个虽然看上去好看，但是没什么前人的参考。</li>
         </ol>
-        <p>我来解释一下我的具体想法：使用 diffusion 是因为 diffusion 本身非常适合离散模型建模，尤其是在针对对手手牌进行读牌的领域，它可能非常适合。</p>
+        <p>我来解释一下我的具体想法：使用 diffusion 是因为 diffusion 可能适合被用来建模麻将中的隐藏信息，尤其是在针对对手手牌进行读牌的领域，它可能非常适合。diffusion 模块不是为了替代 policy/value model，而是主要用于不完全信息下的读牌和 belief modeling。</p>
         <p>我们可能会希望后期出现拥有全信息的模型作为 teacher，然后对它进行蒸馏，形成一个 teacher-student 的网络。</p>
         <p>由于我们不需要进行任何数据收集，所以数据清洗之类的杂活不用干；且如果规模控制得当的话，我认为在一张 3090 Ti 上（或者类似的卡）进行训练都是有可能的。</p>
         <p>以上想法我们实在不行可以降级考虑用diffusion做一个跟sota差不多的就行了，抓优质的对局走传统RL路线，没有必要非要惦记zero的无人工数据训练</p>
